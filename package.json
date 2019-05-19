@@ -2,9 +2,9 @@
   "name": "outwardapp",
   "version": "1.0.0",
   "description": "Outward Eng Challenge App",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Adamcglee/outwardapp#readme",
   "dependencies": {
     "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-ejs": "^4.2.0",
     "koa-router": "^7.4.0"
   },
   "devDependencies": {
