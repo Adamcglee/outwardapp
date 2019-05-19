@@ -41,7 +41,9 @@ async function math(ctx){
 
 async function addMath(ctx){
     const body = ctx.request.body;
-    maths.push(body.mathProblem);
+    let answer = body.mathProblem + " = " + eval(body.mathProblem)
+    maths.push(answer);
+    ctx.redirect("/math");
 }
 
 async function auth(ctx){

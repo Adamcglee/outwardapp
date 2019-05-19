@@ -2,8 +2,8 @@
     <input type="text" name="mathProblem" placeholder="Enter Arithmatic Problem">
     <input type="submit" value="Submit">
 </form>
-<ul>
+<ul style="list-style: none">
     <% maths.map((formula) => {%>
-        <li><% formula %></li>
+        <li><%= formula %></li>
     <% }) %>
 </ul>
