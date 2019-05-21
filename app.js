@@ -7,9 +7,14 @@ const bodyParser = require("koa-bodyparser")
 const app = new Koa();
 const router = new KoaRouter();
 
-// Makeshift DB
+// Temp DB
 const maths = [];
+const users = {
+    username: "testUser",
+    password: "password1234"
+}
 
+// Render Setup
 render(app, {
   root: path.join(__dirname, "views"),
   layout: "layout",
@@ -25,13 +30,16 @@ router.get("/", index);
 router.get("/math", math);
 router.post("/math", addMath);
 router.get("/auth", auth);
+router.post("/auth", checkAuth);
 
+// "/" render function
 async function index(ctx){
     await ctx.render("index", {
-        title: "Outward App"
+        title: "Hello World!"
     });
 }
 
+// "/math" render function
 async function math(ctx){
     await ctx.render("math", {
         title: "MATHS!",
@@ -39,6 +47,7 @@ async function math(ctx){
     });
 }
 
+// "math" POST function
 async function addMath(ctx){
     const body = ctx.request.body;
     let answer = body.mathProblem + " = " + eval(body.mathProblem)
@@ -46,10 +55,18 @@ async function addMath(ctx){
     ctx.redirect("/math");
 }
 
+// "/auth" render function
 async function auth(ctx){
     await ctx.render("auth", {
         title: "Auth!"
     });
+}
+
+// "/auth" POST function
+async function checkAuth(ctx){
+    const body = ctx.request.body;
+    //login auth code
+    ctx.redirect("/auth");
 }
 
 app.use(router.routes()).use(router.allowedMethods());
