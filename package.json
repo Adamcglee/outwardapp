@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Adamcglee/outwardapp#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-ejs": "^4.2.0",

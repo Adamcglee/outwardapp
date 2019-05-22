@@ -1,6 +1,7 @@
 <h1><%- title %></h1>
 <form action="/auth">
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
     <input type="submit" value="Submit">
 </form>
+<h1><%- username %><%- password %></h1>
