@@ -85,7 +85,6 @@ async function checkAuth(ctx) {
         return ctx.body = { errors: [{ title: 'User not found', status: 401 }]}
       }
     }
-  }
   const user = {};
   
 }
