@@ -16,7 +16,7 @@ const users = [
     password: "password1234"
   }
 ];
-const requestInfo = []
+let loginMessage = "";
 
 // Render Setup
 render(app, {
@@ -44,7 +44,7 @@ async function index(ctx) {
 // "/math" render function
 async function math(ctx) {
   await ctx.render("math", {
-    title: "MATHS!",
+    title: "Math Solver",
     maths: maths
   });
 }
@@ -60,9 +60,8 @@ async function addMath(ctx) {
 // "/auth" render function
 async function auth(ctx) {
   await ctx.render("auth", {
-    title: "Auth!",
-    username: users[0].username,
-    password: users[0].password
+    title: "Login",
+    loginMessage: loginMessage
   });
 }
 
@@ -70,23 +69,28 @@ async function auth(ctx) {
 async function checkAuth(ctx) {
   const { username, password } = ctx.request.body;
   for(let i = 0; i < users.length; i++){
+    console.log(ctx.body)
+      // check if username exists in the "DB"
       if(users[i].username === username) {
         const matches = await bcrypt.compare(password, username.passwordHash)
+        // if password matches return status 201
         if (matches) {
-            ctx.status = 201
-            ctx.body = serialize(user)
+            ctx.status = 201;
+            loginMessage = "Login Succesful";
+            return ctx.body = { title: 'Login Succesful', status: 201 };
         } else {
-            console.log('u, p', username, password)
+          // password doesn't match send status 401
             ctx.status = 401
-            return ctx.body = { errors: [{ title: 'Password does not match', status: 401 }]}
+            loginMessage = "Password does not match";
+            return ctx.body = { errors: [{ title: 'Password does not match', status: 401 }]};
             }
       } else {
-        ctx.status = 401
-        return ctx.body = { errors: [{ title: 'User not found', status: 401 }]}
+        // username not in "DB" return status 401 
+        ctx.status = 401;
+        loginMessage = "User not found";
+        return ctx.body = { errors: [{ title: 'User not found', status: 401 }]};
       }
     }
-  const user = {};
-  
 }
 
 app.use(router.routes()).use(router.allowedMethods());
